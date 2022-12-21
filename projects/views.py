@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from .models import Project, student, course, registration
+from django.shortcuts import render, redirect
+from .models import Project
+from .forms import ProjectForm
 
 
 def projects(request):
@@ -13,21 +14,36 @@ def project(request, pk):
     return render(request, 'projects/single-project.html', {"project": projectObj})
 
 
-def intro(request):
-    All = student.objects.all()
-    Q1students = student.objects.filter(name__startswith='ali')
-    Q2students = student.objects.filter(age=22)
-    contents = course.objects.get(name='A1').content.all()
-    # Q3students = []
-    courceID = course.objects.get(name="A1").id
-    Registration = registration.objects.filter(courseid=courceID)
-    Q3students = []
-    for i in Registration:
-        Q3students.append(i.studentid)
-    context = {'Q1students': Q1students,
-               'Q2students': Q2students,
-               'contents': contents,
-               'Q3students': Q3students,
-               'All' : All
-               }
-    return render(request, 'projects/intro.html', context)
+def createProject(request):
+    form = ProjectForm()
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('projects')
+
+    context = {'form': form}
+    return render(request, "projects/project_form.html", context)
+
+
+def updateProject(request, pk):
+    project = Project.objects.get(id=pk)
+    form = ProjectForm(instance=project)
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect('projects')
+
+    context = {'form': form}
+    return render(request, "projects/project_form.html", context)
+
+def deleteProject(request, pk):
+    project = Project.objects.get(id=pk)
+    if request.method == 'POST':
+        project.delete()
+        return redirect('projects')
+    context = {'object': project}
+    return render(request, "projects/delete_template.html", context)

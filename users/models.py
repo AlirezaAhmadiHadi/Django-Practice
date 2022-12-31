@@ -17,7 +17,7 @@ class Profile(models.Model):
         null=True, blank=True, upload_to='profiles/', default='profiles/user-default.png')
     social_github = models.CharField(max_length=200, null=True, blank=True)
     social_twitter = models.CharField(max_length=200, null=True, blank=True)
-    social_linkdin = models.CharField(max_length=200, null=True, blank=True)
+    social_linkedin = models.CharField(max_length=200, null=True, blank=True)
     social_youtube = models.CharField(max_length=200, null=True, blank=True)
     social_website = models.CharField(max_length=200, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

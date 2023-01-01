@@ -28,6 +28,7 @@ def loginUser(request):
         if user is not None:
             print(user)
             login(request, user)
+            messages.success(request, "User signed in successfully")
             return redirect("profiles")
         else:
             messages.error(request, "Username OR Password is incorrect")
@@ -38,7 +39,7 @@ def loginUser(request):
 
 def logoutUser(request):
     logout(request)
-    messages.error(request, "User was logged out!")
+    messages.info(request, "User was logged out!")
     return redirect("login")
 
 
@@ -58,7 +59,7 @@ def registerUser(request):
             return redirect('profiles')
 
         else:
-            messages.success(request, 'An error has occurred during registration')
+            messages.error(request, 'An error has occurred during registration')
 
     context = {"page": page, "form": form}
     return render(request, "users/login_register.html", context)

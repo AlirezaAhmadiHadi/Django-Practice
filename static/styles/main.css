@@ -1,3 +1,17 @@
-ion-icon {
+li a ion-icon {
     font-size: 25px;
+}
+
+td a ion-icon{
+    font-size: 15px;
+    margin-right: 3px;
+}
+.ion-icon_edit {
+    font-size: 13px;
+    margin-right: 3px;
+}
+.ion-icon_add_button,
+.Icon {
+    font-size: 22px;
+    margin-right: 3px;
 }

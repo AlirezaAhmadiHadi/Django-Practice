@@ -1,0 +1,99 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<!-- Main Section -->
+<main class="settingsPage profile my-md">
+  <div class="container">
+    <div class="layout">
+      <div class="column column--1of3">
+        <div class="card text-center">
+          <div class="card__body dev">
+            <a class="tag tag--pill tag--main settings__btn" href="#"><ion-icon
+                name="create-outline" class="ion-icon_edit"></ion-icon>Edit</a>
+            <img class="avatar avatar--xl dev__avatar" src="{{profile.profile_image.url}}" />
+            <h2 class="dev__name">{{profile.ame}}</h2>
+            <p class="dev__title">{{profile.short_intro}}</p>
+            <p class="dev__location">Based in {{profile.location}}</p>
+            <ul class="dev__social">
+              {% if profile.social_github %}
+              <li>
+                <a title="Github" href="{{profile.social_github}}" target="_blank"><ion-icon
+                    name="logo-github"></ion-icon></a>
+              </li>
+              {% endif %}
+              {% if profile.social_twitter %}
+              <li>
+                <a title="Twitter" href="{{profile.social_twitter}}" target="_blank"><ion-icon
+                    name="logo-twitter"></ion-icon></a>
+              </li>
+              {% endif %}
+              {% if profile.social_linkedin %}
+              <li>
+                <a title="LinkedIn" href="{{profile.social_linkedin}}" target="_blank"><ion-icon
+                    name="logo-linkedin"></ion-icon></a>
+              </li>
+              {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="column column--2of3">
+        <div class="devInfo">
+          <h3 class="devInfo__title">About Me</h3>
+          <p class="devInfo__about">{{profile.bio}}</p>
+        </div>
+        <div class="settings">
+          <h3 class="settings__title">Skills</h3>
+          <a class="tag tag--pill tag--sub settings__btn tag--lg" href="#"><ion-icon name="add-outline" class="ion-icon_add_button"></ion-icon>Add
+            Skill</a>
+        </div>
+
+        <!-- SKILLS -->
+        <table class="settings__table">
+          {% for skill in Skills %}
+          <tr>
+            <td class="settings__tableInfo">
+              <h4>{{skill.name}}</h4>
+              <p>{{skill.description}}</p>
+            </td>
+            <td class="settings__tableActions">
+              <a class="tag tag--pill tag--main settings__btn" href="#"><ion-icon
+                  name="create-outline"></ion-icon>Edit</a>
+              <a class="tag tag--pill tag--main settings__btn" href="#"><ion-icon
+                  name="close-circle-outline"></ion-icon>Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <!-- Projects -->
+        <div class="settings">
+          <h3 class="settings__title">Projects</h3>
+          <a class="tag tag--pill tag--sub settings__btn tag--lg" href="#"><ion-icon name="add-outline" class="ion-icon_add_button"></ion-icon>Add
+            Project</a>
+        </div>
+
+        <table class="settings__table">
+          {% for project in projects%}
+          <tr>
+            <td class="settings__thumbnail">
+              <a href="{% url 'project' project.id %}"><img src="{{project.featured_image.url}}"
+                  alt="Project Thumbnail" /></a>
+            </td>
+            <td class="settings__tableInfo">
+              <a href="{% url 'project' project.id %}">{{project.title}}</a>
+              <p>{{project.description|slice:"150"}}</p>
+            </td>
+            <td class="settings__tableActions">
+              <a class="tag tag--pill tag--main settings__btn" href="#"><ion-icon
+                  name="create-outline"></ion-icon>Edit</a>
+              <a class="tag tag--pill tag--main settings__btn" href="#"><ion-icon
+                  name="close-circle-outline"></ion-icon>Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
